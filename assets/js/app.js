@@ -7,11 +7,19 @@ const clearBtn = document.querySelector('.clear-tasks'); //the all task clear bu
 
 const reloadIcon = document.querySelector('.fa'); //the reload button at the top navigation 
 
+const sortD = document.querySelector("#descending")
 datelist = []
 //DB variable 
-
+task_array = []
 let DB;
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+  });
+
+  // Or with jQuery
+
+  $('.dropdown-trigger').dropdown();
 
 
 // Add Event Listener [on Load]
@@ -26,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // if everything is fine, assign the result to the instance
     TasksDB.onsuccess = function() {
         // console.log('Database Ready');
-
         // save the result
         DB = TasksDB.result;
 
@@ -44,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let objectStore = db.createObjectStore('tasks', { keyPath: 'id', autoIncrement: true });
 
         objectStore.createIndex('taskname', 'taskname',{ unique: false });
-        objectStore.createIndex('date','date',{unique: false});
+        objectStore.createIndex('date','date',{unique:false});
         
         console.log('Database ready and fields created!');
     }
@@ -53,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addNewTask(e) {
         e.preventDefault();
-
+       
+        task_array.push(taskInput.value);
+        console.log(task_array);
         // Check empty entry
         if (taskInput.value === '') {
             taskInput.style.borderColor = "red";
@@ -64,18 +73,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // create a new object with the form info
         let newTask = {
             taskname: taskInput.value,
+            date : Date.now()
         }
+       
 
         // Insert the object into the database 
         let transaction = DB.transaction(['tasks'], 'readwrite');
-        let objectStore = transaction.objectStore('tasks');
+        let objectStore = transaction.objectStore('tasks', 'readwrite');
+
+       
 
         let request = objectStore.add(newTask);
-
+        
         // on success
         request.onsuccess = () => {
             form.reset();
         }
+        
+       
+        
+        
         transaction.oncomplete = () => {
             console.log('New appointment added');
 
@@ -121,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 // Append link to li
                 li.appendChild(link);
-                // Append to UL 
+                // Append to UL  
                 taskList.appendChild(li);
                 cursor.continue();
             }
@@ -151,9 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
     }
-
+    sortD.addEventListener('click',sort );
+    
     //clear button event listener   
     clearBtn.addEventListener('click', clearAllTasks);
+    
 
     //clear tasks 
     function clearAllTasks() {
@@ -161,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let tasks = transaction.objectStore("tasks");
         // clear the table.
         tasks.clear();
+        task_array = [];
         displayTaskList();
         console.log("Tasks Cleared !!!");
     }

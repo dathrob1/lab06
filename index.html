@@ -64,22 +64,21 @@
                     <ul class="collection">
                         <!-- Here is the task list goes  -->
                     </ul>
-                    <a href ="#" class="search-task btn blue" id="filter">Search</a>
-                    <ul class="search_result" id="searchresult"><!--search result goes here
-                    --></ul>
+                    <div> <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sort</a>
+                      
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown1' class='dropdown-content' >
+                          <li><a href="#!" style="color:black;"id = "Ascending">Ascending</a></li>
+                          <li><a href="#!" id = "descending" style="color: black;">Descending</a></li>
+                      </div>
                    
+                     <ul class="search_result" id="searchresult"><!--search result goes here
+                    --></ul>
+                     <!-- Dropdown Trigger -->
+                     
+                    <a href="#" class="clear-tasks btn red">Clear All Task</a>
                 </div>
-                <div>
-                    <!-- Dropdown Trigger -->
-  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Sort</a>
-
-  <!-- Dropdown Structure -->
-  <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!" id="asc_option">Ascending</a></li>
-    <li><a href="#!" id="dsc_option">Desending</a></li>
-  </ul>
- 
-                  </div>
+              
             </div>
         </div>
 
