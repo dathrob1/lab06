@@ -7,6 +7,7 @@ const clearBtn = document.querySelector('.clear-tasks'); //the all task clear bu
 
 const reloadIcon = document.querySelector('.fa'); //the reload button at the top navigation 
 
+datelist = []
 //DB variable 
 
 let DB;
@@ -42,13 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // keypath is going to be the Indexes
         let objectStore = db.createObjectStore('tasks', { keyPath: 'id', autoIncrement: true });
 
-        // createindex: 1) field name 2) keypath 3) options
-        objectStore.createIndex('taskname', 'taskname', { unique: false });
-
+        objectStore.createIndex('taskname', 'taskname',{ unique: false });
+        objectStore.createIndex('date','date',{unique: false});
+        
         console.log('Database ready and fields created!');
     }
 
-    form.addEventListener('submit', addNewTask);
+    form.addEventListener('submit' , addNewTask);
 
     function addNewTask(e) {
         e.preventDefault();
