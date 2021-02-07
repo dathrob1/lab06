@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let objectStore = db.createObjectStore('tasks', { keyPath: 'id', autoIncrement: true });
 
         objectStore.createIndex('taskname', 'taskname',{ unique: false });
-        objectStore.createIndex('date','date',{unique:false});
+        //objectStore.createIndex('date','date',{unique:false});
         
         console.log('Database ready and fields created!');
     }
@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
        
         task_array.push(taskInput.value);
-        console.log(task_array);
         // Check empty entry
         if (taskInput.value === '') {
             taskInput.style.borderColor = "red";
