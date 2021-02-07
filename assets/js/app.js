@@ -169,7 +169,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     sortD.addEventListener('click',sort );
-    
+    function sort(){
+        task_array = task_array.reverse();
+        while (taskList.firstChild) {
+            taskList.removeChild(taskList.firstChild);
+        }
+        console.log("sorting");
+        task_array.forEach(task => {
+            let li = document.createElement('li');
+            li.className = 'collection-item';
+            li.appendChild(document.createTextNode(task));
+            const link = document.createElement('a');
+            link.className = 'delete-item secondary-content';
+            link.innerHTML = '<i class="fa fa-remove"></i>';
+            link.innerHTML = `
+                 <i class="fa fa-remove"></i>
+                &nbsp;
+                <a href="edit.html?id="><i class="fa fa-edit"></i> </a>
+                `;
+            li.appendChild(link);
+            taskList.appendChild(li);
+        })
+    }
     //clear button event listener   
     clearBtn.addEventListener('click', clearAllTasks);
     
